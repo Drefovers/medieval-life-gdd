@@ -47,12 +47,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   navLinks.forEach((link) => {
     link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const targetId = link.getAttribute('href').substring(1);
-      const targetSection = document.getElementById(targetId);
+      const href = link.getAttribute('href');
+      
+      // Only prevent default and smooth scroll if it's an anchor link
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        const targetId = href.substring(1);
+        const targetSection = document.getElementById(targetId);
 
-      if (targetSection) {
-        targetSection.scrollIntoView({ behavior: 'smooth' });
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
       }
 
       // Close sidebar on mobile after navigation
