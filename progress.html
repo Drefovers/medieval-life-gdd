@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progress Tracker — Medieval Life</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .kanban-board {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+    }
+    .kanban-column {
+      flex: 1;
+      min-width: 300px;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .column-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .column-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .task-count {
+      background: rgba(255,255,255,0.1);
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+    }
+    .task-card {
+      background: var(--bg-main);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .task-card:hover {
+      border-color: var(--gold-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.1);
+    }
+    .task-title {
+      font-weight: 500;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+    .task-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+    }
+    .status-badge {
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .status-todo { background: rgba(100,116,139,0.2); color: #94a3b8; border: 1px solid rgba(100,116,139,0.3); }
+    .status-progress { background: rgba(234,179,8,0.2); color: #facc15; border: 1px solid rgba(234,179,8,0.3); }
+    .status-done { background: rgba(34,197,94,0.2); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+    
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 2rem;
+    }
+    
+    .overall-progress {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .progress-bar-container {
+      height: 8px;
+      background: var(--bg-main);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold-primary));
+      width: 15%; /* adjust based on tasks */
+      border-radius: 4px;
+      transition: width 1s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========== MOBILE MENU TOGGLE ========== -->
+<button class="menu-toggle" aria-label="Toggle menu">☰</button>
+<div class="sidebar-overlay"></div>
+
+<!-- ========== SIDEBAR NAVIGATION ========== -->
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      👑 Medieval Life
+      <span class="subtitle">Progress Tracker</span>
+    </div>
+  </div>
+
+  <div class="sidebar-nav">
+    <div class="nav-group-label">เมนูหลัก</div>
+    <a href="index.html" class="nav-link">
+      <span class="nav-icon">⬅️</span> กลับไปหน้า GDD
+    </a>
+    <a href="progress.html" class="nav-link active">
+      <span class="nav-icon">📊</span> Progress Tracker
+    </a>
+  </div>
+</nav>
+
+<!-- ========== MAIN CONTENT ========== -->
+<main class="main-content">
+  <section class="content-section">
+    <div class="progress-header reveal">
+      <div>
+        <span class="section-number">Tracker</span>
+        <h2 class="section-title"><span class="section-icon">📊</span> ระบบติดตามการพัฒนา (Kanban)</h2>
+        <p class="section-desc">ติดตามความคืบหน้าการพัฒนาระบบต่างๆ ในเกมแบบ Real-time</p>
+      </div>
+    </div>
+
+    <!-- Overall Progress -->
+    <div class="overall-progress reveal">
+      <div style="display: flex; justify-content: space-between;">
+        <span style="font-weight: 600; color: var(--gold-primary);">Overall Development Progress</span>
+        <span>15%</span>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill"></div>
+      </div>
+    </div>
+
+    <!-- Kanban Board -->
+    <div class="kanban-board reveal">
+      
+      <!-- TODO COLUMN -->
+      <div class="kanban-column">
+        <div class="column-header">
+          <div class="column-title">📋 To Do (รอเริ่มทำ)</div>
+          <span class="task-count">6</span>
+        </div>
+        
+        <div class="task-card">
+          <div class="task-title">ระบบต่อสู้ (Combat)</div>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.5rem;">พัฒนา Hitbox, อาวุธ, การ Parry</p>
+          <div class="task-meta">
+            <span class="tag tag-red">CORE</span>
+            <span class="status-badge status-todo">To Do</span>
+          </div>
+        </div>
+        
+        <div class="task-card">
+          <div class="task-title">ระบบสร้างอาณาจักร (Building)</div>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.5rem;">ระบบวางแผนผังเมืองและสิ่งปลูกสร้าง</p>
+          <div class="task-meta">
+            <span class="tag tag-red">CORE</span>
+            <span class="status-badge status-todo">To Do</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-title">ระบบคราฟ (Crafting)</div>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.5rem;">ทำ Mini-game สำหรับคราฟอาวุธ</p>
+          <div class="task-meta">
+            <span class="tag tag-gold">IMPORTANT</span>
+            <span class="status-badge status-todo">To Do</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-title">ระบบเควส (Quest)</div>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.5rem;">ทำ UI เควสและ NPC Dialogues</p>
+          <div class="task-meta">
+            <span class="tag tag-gold">IMPORTANT</span>
+            <span class="status-badge status-todo">To Do</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-title">ระบบการเมือง (Politics)</div>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.5rem;">ระบบโหวตและเลือกตั้ง</p>
+          <div class="task-meta">
+            <span class="tag tag-green">MEDIUM</span>
+            <span class="status-badge status-todo">To Do</span>
+          </div>
+        </div>
+        
+        <div class="task-card">
+          <div class="task-title">ระบบ Monetization</div>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.5rem;">เชื่อมต่อ Gamepass & Dev Products</p>
+          <div class="task-meta">
+            <span class="tag tag-blue">BIZ</span>
+            <span class="status-badge status-todo">To Do</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- IN PROGRESS COLUMN -->
+      <div class="kanban-column">
+        <div class="column-header">
+          <div class="column-title">🚧 In Progress (กำลังทำ)</div>
+          <span class="task-count">2</span>
+        </div>
+        
+        <div class="task-card">
+          <div class="task-title">ระบบลำดับชั้นสังคม (Hierarchy)</div>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.5rem;">ตั้งค่า Role & Permission ในเกม</p>
+          <div class="task-meta">
+            <span class="tag tag-red">CORE</span>
+            <span class="status-badge status-progress">In Progress</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-title">ระบบเศรษฐกิจพื้นฐาน (Economy)</div>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.5rem;">ระบบเงินและร้านค้า NPC</p>
+          <div class="task-meta">
+            <span class="tag tag-red">CORE</span>
+            <span class="status-badge status-progress">In Progress</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- COMPLETED COLUMN -->
+      <div class="kanban-column">
+        <div class="column-header">
+          <div class="column-title">✅ Completed (เสร็จแล้ว)</div>
+          <span class="task-count">2</span>
+        </div>
+        
+        <div class="task-card">
+          <div class="task-title">Game Design Document (GDD)</div>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.5rem;">วางแผนและออกแบบระบบเกมทั้งหมด</p>
+          <div class="task-meta">
+            <span class="tag tag-blue">DOCS</span>
+            <span class="status-badge status-done">Done</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-title">GDD Website Portal</div>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.5rem;">สร้างเว็บไซต์สำหรับนำเสนอ GDD</p>
+          <div class="task-meta">
+            <span class="tag tag-blue">DOCS</span>
+            <span class="status-badge status-done">Done</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script>
+  // Mobile Menu Toggle
+  const menuToggle = document.querySelector('.menu-toggle');
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.sidebar-overlay');
+
+  if (menuToggle && sidebar && overlay) {
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('visible');
+    });
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('visible');
+    });
+  }
+
+  // Reveal Animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
