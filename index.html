@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medieval Life: Rise to the Throne — Game Design Document</title>
+  <meta name="description" content="Game Design Document สำหรับเกม Roblox แนว Medieval Life RPG — ระบบเกมครบถ้วน 12 ระบบ">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>">
+</head>
+<body>
+
+<!-- ========== MOBILE MENU TOGGLE ========== -->
+<button class="menu-toggle" aria-label="Toggle menu">☰</button>
+
+<!-- ========== SIDEBAR OVERLAY ========== -->
+<div class="sidebar-overlay"></div>
+
+<!-- ========== SIDEBAR NAVIGATION ========== -->
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      👑 Medieval Life
+      <span class="subtitle">Game Design Document</span>
+    </div>
+  </div>
+
+  <div class="sidebar-nav">
+    <div class="nav-group-label">ภาพรวม</div>
+    <a href="#hero" class="nav-link active">
+      <span class="nav-icon">🏠</span> หน้าหลัก
+    </a>
+    <a href="#overview" class="nav-link">
+      <span class="nav-icon">📋</span> สารบัญระบบ
+    </a>
+
+    <div class="nav-group-label">ระบบหลัก</div>
+    <a href="#system-1" class="nav-link">
+      <span class="nav-icon">👑</span> ลำดับชั้นสังคม
+      <span class="nav-badge core">CORE</span>
+    </a>
+    <a href="#system-2" class="nav-link">
+      <span class="nav-icon">💰</span> เศรษฐกิจ
+      <span class="nav-badge core">CORE</span>
+    </a>
+    <a href="#system-3" class="nav-link">
+      <span class="nav-icon">⚔️</span> ต่อสู้
+      <span class="nav-badge core">CORE</span>
+    </a>
+    <a href="#system-11" class="nav-link">
+      <span class="nav-icon">📈</span> Progression & Skills
+      <span class="nav-badge core">CORE</span>
+    </a>
+    <a href="#system-5" class="nav-link">
+      <span class="nav-icon">🏰</span> สร้างอาณาจักร
+      <span class="nav-badge core">CORE</span>
+    </a>
+
+    <div class="nav-group-label">ระบบเสริม</div>
+    <a href="#system-4" class="nav-link">
+      <span class="nav-icon">📖</span> เควส
+      <span class="nav-badge important">IMPORTANT</span>
+    </a>
+    <a href="#system-6" class="nav-link">
+      <span class="nav-icon">🔨</span> คราฟ
+      <span class="nav-badge important">IMPORTANT</span>
+    </a>
+    <a href="#system-7" class="nav-link">
+      <span class="nav-icon">🌾</span> ฟาร์ม & ทรัพยากร
+      <span class="nav-badge important">IMPORTANT</span>
+    </a>
+    <a href="#system-9" class="nav-link">
+      <span class="nav-icon">🛡️</span> กิลด์ & อาชีพ
+      <span class="nav-badge important">IMPORTANT</span>
+    </a>
+
+    <div class="nav-group-label">ระบบขั้นสูง</div>
+    <a href="#system-8" class="nav-link">
+      <span class="nav-icon">⚖️</span> การเมือง & การทูต
+      <span class="nav-badge medium">MEDIUM</span>
+    </a>
+    <a href="#system-10" class="nav-link">
+      <span class="nav-icon">🐉</span> Events & Boss
+      <span class="nav-badge medium">MEDIUM</span>
+    </a>
+    <a href="#system-12" class="nav-link">
+      <span class="nav-icon">💎</span> Monetization
+      <span class="nav-badge medium">BIZ</span>
+    </a>
+
+    <div class="nav-group-label">สรุป</div>
+    <a href="#gameloop" class="nav-link">
+      <span class="nav-icon">🔄</span> Core Game Loop
+    </a>
+    <a href="#roadmap" class="nav-link">
+      <span class="nav-icon">🗓️</span> Roadmap
+    </a>
+  </div>
+
+  <div class="sidebar-footer">
+    <p>Roblox • RPG • Medieval</p>
+  </div>
+</nav>
+
+<!-- ========== MAIN CONTENT ========== -->
+<main class="main-content">
+
+  <!-- ==================== HERO ==================== -->
+  <section id="hero" class="hero">
+    <div class="hero-crown">👑</div>
+    <h1 class="hero-title">Medieval Life</h1>
+    <p class="hero-subtitle">Rise to the Throne</p>
+    <p class="hero-tagline">
+      จากชาวนาธรรมดา สู่กษัตริย์ผู้ปกครองอาณาจักร — เกม Roblox RPG ที่ผู้เล่นกำหนดชะตาของตัวเอง
+      ผ่านการต่อสู้ การค้า การเมือง และพันธมิตร
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="stat-number animate-count" data-target="12">0</span>
+        <span class="stat-label">ระบบเกม</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-number animate-count" data-target="7">0</span>
+        <span class="stat-label">ลำดับชั้น</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-number animate-count" data-target="50">0</span>
+        <span class="stat-label">ผู้เล่น / Server</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-number animate-count" data-target="100">0</span>
+        <span class="stat-label">Max Level</span>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>เลื่อนลง</span>
+      <span>▼</span>
+    </div>
+  </section>
+
+  <!-- ==================== OVERVIEW ==================== -->
+  <section id="overview" class="content-section">
+    <div class="section-header reveal">
+      <span class="section-number">Overview</span>
+      <h2 class="section-title"><span class="section-icon">📋</span> สารบัญระบบทั้งหมด</h2>
+      <p class="section-desc">ระบบเกมทั้ง 12 ระบบที่ออกแบบมาเพื่อสร้างประสบการณ์ Medieval RPG ที่สมจริงและสนุก</p>
+    </div>
+
+    <div class="overview-grid">
+      <a href="#system-1" class="overview-item reveal reveal-delay-1">
+        <span class="ov-icon">👑</span>
+        <span class="ov-title">ลำดับชั้นสังคม</span>
+        <span class="ov-desc">7 ระดับ จากชาวนาสู่กษัตริย์</span>
+        <span class="ov-badge"><span class="tag tag-red">CORE</span></span>
+      </a>
+      <a href="#system-2" class="overview-item reveal reveal-delay-2">
+        <span class="ov-icon">💰</span>
+        <span class="ov-title">เศรษฐกิจ</span>
+        <span class="ov-desc">Player-driven market + ภาษี</span>
+        <span class="ov-badge"><span class="tag tag-red">CORE</span></span>
+      </a>
+      <a href="#system-3" class="overview-item reveal reveal-delay-3">
+        <span class="ov-icon">⚔️</span>
+        <span class="ov-title">ต่อสู้</span>
+        <span class="ov-desc">Skill-based combat + Combo</span>
+        <span class="ov-badge"><span class="tag tag-red">CORE</span></span>
+      </a>
+      <a href="#system-4" class="overview-item reveal reveal-delay-4">
+        <span class="ov-icon">📖</span>
+        <span class="ov-title">เควส</span>
+        <span class="ov-desc">Main Story 4 Act + Side Quests</span>
+        <span class="ov-badge"><span class="tag tag-gold">IMPORTANT</span></span>
+      </a>
+      <a href="#system-5" class="overview-item reveal reveal-delay-1">
+        <span class="ov-icon">🏰</span>
+        <span class="ov-title">สร้างอาณาจักร</span>
+        <span class="ov-desc">อาคาร 10+ ประเภท + ที่ดิน</span>
+        <span class="ov-badge"><span class="tag tag-red">CORE</span></span>
+      </a>
+      <a href="#system-6" class="overview-item reveal reveal-delay-2">
+        <span class="ov-icon">🔨</span>
+        <span class="ov-title">คราฟ</span>
+        <span class="ov-desc">5 สาขา + Mini-game</span>
+        <span class="ov-badge"><span class="tag tag-gold">IMPORTANT</span></span>
+      </a>
+      <a href="#system-7" class="overview-item reveal reveal-delay-3">
+        <span class="ov-icon">🌾</span>
+        <span class="ov-title">ฟาร์ม & ทรัพยากร</span>
+        <span class="ov-desc">เกษตร, เหมือง, ล่าสัตว์</span>
+        <span class="ov-badge"><span class="tag tag-gold">IMPORTANT</span></span>
+      </a>
+      <a href="#system-8" class="overview-item reveal reveal-delay-4">
+        <span class="ov-icon">⚖️</span>
+        <span class="ov-title">การเมือง & การทูต</span>
+        <span class="ov-desc">เลือกตั้ง, กฎหมาย, พันธมิตร</span>
+        <span class="ov-badge"><span class="tag tag-green">MEDIUM</span></span>
+      </a>
+      <a href="#system-9" class="overview-item reveal reveal-delay-1">
+        <span class="ov-icon">🛡️</span>
+        <span class="ov-title">กิลด์ & อาชีพ</span>
+        <span class="ov-desc">5 NPC Guild + Clan System</span>
+        <span class="ov-badge"><span class="tag tag-gold">IMPORTANT</span></span>
+      </a>
+      <a href="#system-10" class="overview-item reveal reveal-delay-2">
+        <span class="ov-icon">🐉</span>
+        <span class="ov-title">Events & Boss</span>
+        <span class="ov-desc">Tournament, Siege, World Boss</span>
+        <span class="ov-badge"><span class="tag tag-green">MEDIUM</span></span>
+      </a>
+      <a href="#system-11" class="overview-item reveal reveal-delay-3">
+        <span class="ov-icon">📈</span>
+        <span class="ov-title">Progression & Skills</span>
+        <span class="ov-desc">Lv.100 + Skill Tree 4 สาย</span>
+        <span class="ov-badge"><span class="tag tag-red">CORE</span></span>
+      </a>
+      <a href="#system-12" class="overview-item reveal reveal-delay-4">
+        <span class="ov-icon">💎</span>
+        <span class="ov-title">Monetization</span>
+        <span class="ov-desc">Gamepass + Dev Products</span>
+        <span class="ov-badge"><span class="tag tag-blue">BIZ</span></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ==================== SYSTEM 1: SOCIAL HIERARCHY ==================== -->
+  <section id="system-1" class="content-section">
+    <div class="section-header reveal">
+      <span class="section-number">System 01</span>
+      <h2 class="section-title"><span class="section-icon">👑</span> ระบบลำดับชั้นสังคม</h2>
+      <p class="section-desc">ระบบหลักที่ทำให้เกมแตกต่าง — ผู้เล่นไต่จากชาวนาธรรมดาสู่กษัตริย์ผู้ปกครองอาณาจักร กษัตริย์สามารถถูกโค่นล้มได้!</p>
+    </div>
+
+    <!-- Hierarchy Tree -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🏗️</span> ลำดับชั้น 7 ระดับ</h3>
+
+      <div class="hierarchy-tree">
+        <div class="hierarchy-level king">
+          <span class="level-icon">👑</span>
+          <div class="level-info">
+            <div class="level-name">กษัตริย์ (King)</div>
+            <div class="level-desc">ปกครองอาณาจักรทั้งหมด | ตั้งภาษี, ประกาศสงคราม, ออกกฎหมาย</div>
+          </div>
+          <span class="level-slots">1 คน / Kingdom</span>
+        </div>
+        <div class="hierarchy-connector"></div>
+        <div class="hierarchy-level">
+          <span class="level-icon">🏛️</span>
+          <div class="level-info">
+            <div class="level-name">ขุนนาง (Duke / Lord)</div>
+            <div class="level-desc">ดูแลเมืองย่อย | เก็บภาษีเมือง, จ้างทหาร, สร้างปราสาท</div>
+          </div>
+          <span class="level-slots">3-5 คน</span>
+        </div>
+        <div class="hierarchy-connector"></div>
+        <div class="hierarchy-level">
+          <span class="level-icon">⚔️</span>
+          <div class="level-info">
+            <div class="level-name">อัศวิน (Knight)</div>
+            <div class="level-desc">ผู้บัญชาการกองทัพ | ใช้ม้าศึก, อาวุธ Tier 3+, นำทัพ</div>
+          </div>
+          <span class="level-slots">10 คน</span>
+        </div>
+        <div class="hierarchy-connector"></div>
+        <div class="hierarchy-level">
+          <span class="level-icon">🛡️</span>
+          <div class="level-info">
+            <div class="level-name">ทหาร (Soldier)</div>
+            <div class="level-desc">ปกป้องอาณาจักร | เข้าค่ายทหาร, อาวุธ Tier 2, รับเงินเดือน</div>
+          </div>
+          <span class="level-slots">ไม่จำกัด</span>
+        </div>
+        <div class="hierarchy-connector"></div>
+        <div class="hierarchy-level">
+          <span class="level-icon">🔨</span>
+          <div class="level-info">
+            <div class="level-name">ช่างฝีมือ (Artisan)</div>
+            <div class="level-desc">ผู้เชี่ยวชาญคราฟ | เปิดร้าน, คราฟของ Tier สูง</div>
+          </div>
+          <span class="level-slots">ไม่จำกัด</span>
+        </div>
+        <div class="hierarchy-connector"></div>
+        <div class="hierarchy-level">
+          <span class="level-icon">🌾</span>
+          <div class="level-info">
+            <div class="level-name">ชาวนา (Peasant)</div>
+            <div class="level-desc">จุดเริ่มต้น | ทำนา, ตัดไม้, ขุดแร่, ทำงานจ้างพื้นฐาน</div>
+          </div>
+          <span class="level-slots">เริ่มต้น</span>
+        </div>
+        <div class="hierarchy-connector"></div>
+        <div class="hierarchy-level prisoner">
+          <span class="level-icon">⛓️</span>
+          <div class="level-info">
+            <div class="level-name">นักโทษ (Prisoner)</div>
+            <div class="level-desc">สถานะลงโทษ | จำกัดทุกอย่าง, ต้องรอหมดโทษหรือหนีคุก</div>
+          </div>
+          <span class="level-slots">ลงโทษ</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Promotion Paths -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">📜</span> วิธีเลื่อนชั้น</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>จาก → ไป</th>
+              <th>วิธีการ</th>
+              <th>เงื่อนไข</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="cell-highlight">ชาวนา → ช่างฝีมือ</td>
+              <td>เรียนรู้ Crafting Skill ถึง Lv.10</td>
+              <td class="cell-mono">500 Gold</td>
+            </tr>
+            <tr>
+              <td class="cell-highlight">ชาวนา → ทหาร</td>
+              <td>สมัครเข้ากองทัพ</td>
+              <td class="cell-mono">Combat Lv.5 + ผ่าน Trial</td>
+            </tr>
+            <tr>
+              <td class="cell-highlight">ทหาร → อัศวิน</td>
+              <td>ได้รับแต่งตั้งจาก Lord / King</td>
+              <td class="cell-mono">ชนะ Tournament / Quest พิเศษ</td>
+            </tr>
+            <tr>
+              <td class="cell-highlight">ช่างฝีมือ/ทหาร → ขุนนาง</td>
+              <td>ซื้อที่ดิน + ได้รับแต่งตั้ง</td>
+              <td class="cell-mono">10,000 Gold + Reputation 500</td>
+            </tr>
+            <tr>
+              <td class="cell-gold">ขุนนาง → กษัตริย์</td>
+              <td>ชนะการเลือกตั้ง / สงครามกลางเมือง / สืบราชบัลลังก์</td>
+              <td class="cell-mono">ต้องเป็น Duke ก่อน</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- King Overthrow -->
+    <div class="info-card warning reveal">
+      <div class="info-title">⚠️ ระบบโค่นล้มกษัตริย์</div>
+      กษัตริย์สามารถถูกโค่นล้มได้! ถ้า Approval Rating ต่ำกว่า 20% จะเกิด Event <strong>"การปฏิวัติ"</strong>
+      ที่ผู้เล่นทุกคนสามารถโหวตให้โค่นกษัตริย์ได้ — ภาษีสูงเกินไป = เสี่ยงหลุดจากบัลลังก์!
+    </div>
+
+    <!-- Rights per tier -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🔑</span> สิทธิ์ของแต่ละชั้น</h3>
+      <div class="card-grid">
+        <div class="feature-card">
+          <span class="card-icon">👑</span>
+          <div class="card-title">กษัตริย์</div>
+          <div class="card-text">ตั้งภาษี • ประกาศสงคราม • แต่งตั้ง/ปลดขุนนาง • ออกกฎหมาย • Royal Treasury • Throne Room</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🏛️</span>
+          <div class="card-title">ขุนนาง</div>
+          <div class="card-text">เก็บภาษีเมืองตัวเอง • จ้างทหาร NPC • สร้างปราสาท • เข้าร่วม Royal Council</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">⚔️</span>
+          <div class="card-title">อัศวิน</div>
+          <div class="card-text">ใช้ม้าศึก • อาวุธ Tier 3+ • นำทัพ • ฝึกทหาร • เข้า Arena พิเศษ</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🛡️</span>
+          <div class="card-title">ทหาร</div>
+          <div class="card-text">เข้าค่ายทหาร • อาวุธ Tier 2 • รับเงินเดือนจาก Kingdom • ร่วมรบ Siege</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🔨</span>
+          <div class="card-title">ช่างฝีมือ</div>
+          <div class="card-text">เปิดร้าน • คราฟของ Tier สูง • ตั้งราคาสินค้าเอง • สร้าง Workshop</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🌾</span>
+          <div class="card-title">ชาวนา</div>
+          <div class="card-text">ทำนา • ตัดไม้ • ขุดแร่ • ทำงานจ้างพื้นฐาน • เริ่มต้นทุกคน</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SYSTEM 2: ECONOMY ==================== -->
+  <section id="system-2" class="content-section">
+    <div class="section-header reveal">
+      <span class="section-number">System 02</span>
+      <h2 class="section-title"><span class="section-icon">💰</span> ระบบเศรษฐกิจ</h2>
+      <p class="section-desc">Player-driven economy ที่สมจริง — ผู้เล่นเป็นคนกำหนดราคาสินค้าเอง พร้อมระบบภาษีที่ส่งผลต่อการเมือง</p>
+    </div>
+
+    <!-- Currency -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🪙</span> สกุลเงิน 3 ระดับ</h3>
+      <div class="stat-row">
+        <div class="stat-card">
+          <span class="stat-value">🟤</span>
+          <span class="stat-label">Copper (ทองแดง)</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value">⚪</span>
+          <span class="stat-label">Silver = 100 Copper</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value">🟡</span>
+          <span class="stat-label">Gold = 100 Silver</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Market Types -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🏪</span> ระบบตลาด</h3>
+      <div class="card-grid">
+        <div class="feature-card">
+          <span class="card-icon">🏬</span>
+          <div class="card-title">NPC Shops</div>
+          <div class="card-text">ขายของพื้นฐาน ราคาตายตัว — เป็น Floor Price ป้องกัน Inflation ในเกม</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🛒</span>
+          <div class="card-title">Player Market</div>
+          <div class="card-text">ผู้เล่นตั้งร้านขายของเอง กำหนดราคาเอง — Economy ขับเคลื่อนโดยผู้เล่น</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🔨</span>
+          <div class="card-title">Auction House</div>
+          <div class="card-text">ประมูลของหายาก อาวุธ Legendary ม้าหายาก — แข่งเสนอราคากัน</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🕶️</span>
+          <div class="card-title">Black Market</div>
+          <div class="card-text">ซื้อ-ขายของผิดกฎหมาย (ยาพิษ, ของขโมย) — ถ้าโดนจับ จะถูกขังคุก!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tax Flow -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">💸</span> ระบบภาษี</h3>
+      <div class="tax-flow">
+        <div class="tax-node">🌾 ชาวนา / ช่างฝีมือ</div>
+        <div class="tax-arrow">
+          <span>ภาษี 5-15%</span>
+          <span>→</span>
+        </div>
+        <div class="tax-node">🏛️ ขุนนางเมือง</div>
+        <div class="tax-arrow">
+          <span>ภาษี 10-20%</span>
+          <span>→</span>
+        </div>
+        <div class="tax-node">👑 Royal Treasury</div>
+        <div class="tax-arrow">
+          <span>จ่ายออก</span>
+          <span>→</span>
+        </div>
+        <div class="tax-node">🛡️ เงินเดือนทหาร + พัฒนาเมือง</div>
+      </div>
+
+      <div class="info-card reveal">
+        <div class="info-title">💡 Tax Strategy</div>
+        กษัตริย์ที่ตั้งภาษีสูงเกินไปจะทำให้ Approval Rating ลดลง → เสี่ยงต่อการปฏิวัติ! ต้องบาลานซ์ระหว่างรายได้กับความพอใจของประชาชน
+      </div>
+    </div>
+
+    <!-- Anti-Inflation -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">📊</span> Anti-Inflation Mechanics</h3>
+      <div class="card-grid card-grid-3">
+        <div class="feature-card">
+          <span class="card-icon">📌</span>
+          <div class="card-title">Floor Price</div>
+          <div class="card-text">NPC Shops มี Floor Price ป้องกันราคาสินค้าตกต่ำเกินไป</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🍖</span>
+          <div class="card-title">Consumables</div>
+          <div class="card-text">อาหาร, ยา หมดได้ — ต้องผลิตใหม่ตลอด สร้าง Demand ต่อเนื่อง</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">💰</span>
+          <div class="card-title">Gold Sink</div>
+          <div class="card-text">ภาษี, ค่าซ่อมอาวุธ, ค่าสร้างอาคาร — ดูดเงินออกจากระบบ</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🔧</span>
+          <div class="card-title">Durability</div>
+          <div class="card-text">อาวุธ/เกราะมี Durability — ต้องซ่อมหรือซื้อใหม่</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SYSTEM 3: COMBAT ==================== -->
+  <section id="system-3" class="content-section">
+    <div class="section-header reveal">
+      <span class="section-number">System 03</span>
+      <h2 class="section-title"><span class="section-icon">⚔️</span> ระบบต่อสู้</h2>
+      <p class="section-desc">Combat ที่สนุกและ Skill-based — ไม่ใช่แค่คลิกรัวๆ มี Parry, Combo, Dodge และท่าพิเศษตามอาชีพ</p>
+    </div>
+
+    <!-- Weapon Types -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🗡️</span> ประเภทอาวุธ</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr><th>ประเภท</th><th>ตัวอย่าง</th><th>ลักษณะ</th><th>เหมาะกับ</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="cell-highlight">🗡️ ดาบ (Sword)</td><td>ดาบสั้น, ดาบยาว, Claymore</td><td>บาลานซ์ ความเร็ว + ดาเมจ</td><td><span class="tag tag-blue">ทั่วไป</span></td></tr>
+            <tr><td class="cell-highlight">🪓 ขวาน (Axe)</td><td>ขวานมือเดียว, Battle Axe</td><td>ดาเมจสูง, ช้า</td><td><span class="tag tag-red">Tank</span></td></tr>
+            <tr><td class="cell-highlight">🔱 หอก (Spear)</td><td>หอก, Halberd</td><td>ระยะไกล, ป้องกันม้า</td><td><span class="tag tag-green">ทหาร</span></td></tr>
+            <tr><td class="cell-highlight">🏹 ธนู (Bow)</td><td>ธนูสั้น, Longbow, Crossbow</td><td>ระยะไกล</td><td><span class="tag tag-gold">นักยิง</span></td></tr>
+            <tr><td class="cell-highlight">🛡️ โล่ (Shield)</td><td>โล่ไม้, โล่เหล็ก</td><td>ป้องกัน, Parry</td><td><span class="tag tag-red">Tank</span></td></tr>
+            <tr><td class="cell-highlight">🔮 เวทมนตร์ (Magic)</td><td>ไม้เท้า, หนังสือเวท</td><td>AoE, Support</td><td><span class="tag tag-purple">Mage</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Combat Controls -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🎯</span> Combat Mechanics</h3>
+      <div class="keybind-list">
+        <div class="keybind-item">
+          <span class="keybind-key">LMB</span>
+          <span class="keybind-action">Light Attack</span>
+          <span class="keybind-desc">เร็ว, ดาเมจน้อย — ใช้สร้าง Combo</span>
+        </div>
+        <div class="keybind-item">
+          <span class="keybind-key">Hold LMB</span>
+          <span class="keybind-action">Heavy Attack</span>
+          <span class="keybind-desc">ช้า, ดาเมจมาก — ทำลาย Block</span>
+        </div>
+        <div class="keybind-item">
+          <span class="keybind-key">F</span>
+          <span class="keybind-action">Block / Parry</span>
+          <span class="keybind-desc">กดจังหวะถูก = Parry → ศัตรูเปิดช่อง</span>
+        </div>
+        <div class="keybind-item">
+          <span class="keybind-key">2x Dir</span>
+          <span class="keybind-action">Dodge / Roll</span>
+          <span class="keybind-desc">หลบ i-frame สั้นๆ — Double tap ทิศทาง</span>
+        </div>
+        <div class="keybind-item">
+          <span class="keybind-key">Q</span>
+          <span class="keybind-action">Special Ability</span>
+          <span class="keybind-desc">ท่าพิเศษตามอาชีพ — มี Cooldown</span>
+        </div>
+        <div class="keybind-item">
+          <span class="keybind-key">L+L+H</span>
+          <span class="keybind-action">Combo Attack</span>
+          <span class="keybind-desc">Light → Light → Heavy = Combo พิเศษ</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Battle Modes -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🏟️</span> โหมดต่อสู้</h3>
+      <div class="card-grid">
+        <div class="feature-card">
+          <span class="card-icon">⚔️</span>
+          <div class="card-title">PvP Duel</div>
+          <div class="card-text">ท้าดวลตัวต่อตัว ได้เงินเดิมพัน — ไม่เสีย Reputation</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🏆</span>
+          <div class="card-title">Tournament</div>
+          <div class="card-text">แข่งขันทุก 2 ชม. ชนะได้รางวัล + Title "Champion"</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🏰</span>
+          <div class="card-title">Siege War</div>
+          <div class="card-text">สงครามยึดปราสาท Kingdom vs Kingdom — Epic Scale!</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🤝</span>
+          <div class="card-title">Arena (2v2, 5v5)</div>
+          <div class="card-text">Team Battle — ใช้กลยุทธ์ทีมเวิร์ค</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🐉</span>
+          <div class="card-title">Monster Hunting</div>
+          <div class="card-text">ล่ามอนสเตอร์ตาม Dungeon — ได้ของหายาก</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Monster Table -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">👹</span> ศัตรู / มอนสเตอร์</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr><th>ระดับ</th><th>ศัตรู</th><th>Drop</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="tag tag-green">Easy</span></td><td>หมาป่า, โจร</td><td>หนัง, เงินน้อย</td></tr>
+            <tr><td><span class="tag tag-blue">Medium</span></td><td>Orc, Skeleton</td><td>แร่, อาวุธ Tier 1</td></tr>
+            <tr><td><span class="tag tag-purple">Hard</span></td><td>Dark Knight, Troll</td><td>อาวุธ Tier 2, Recipe หายาก</td></tr>
+            <tr><td><span class="tag tag-red">Boss</span></td><td>Dragon, Demon Lord</td><td>อาวุธ Legendary, Title พิเศษ</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SYSTEM 4: QUEST ==================== -->
+  <section id="system-4" class="content-section">
+    <div class="section-header reveal">
+      <span class="section-number">System 04</span>
+      <h2 class="section-title"><span class="section-icon">📖</span> ระบบเควส</h2>
+      <p class="section-desc">เควสที่ไม่ได้มีแค่ "ไปฆ่า 10 ตัว" — มี Story 4 Act และ Choice ที่ส่งผลต่อเกม</p>
+    </div>
+
+    <!-- Main Quest -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">⚔️</span> Main Quest — เส้นทางสู่บัลลังก์</h3>
+
+      <div class="tabs">
+        <div class="tab-buttons">
+          <button class="tab-btn active" data-tab="act1">Act 1: จุดเริ่มต้น</button>
+          <button class="tab-btn" data-tab="act2">Act 2: เส้นทางแห่งอำนาจ</button>
+          <button class="tab-btn" data-tab="act3">Act 3: มหาสงคราม</button>
+          <button class="tab-btn" data-tab="act4">Act 4: ราชาผู้ครองบัลลังก์</button>
+        </div>
+        <div class="tab-content active" data-tab="act1">
+          <div class="feature-card" style="margin:0">
+            <div class="card-title">Act 1: จุดเริ่มต้น <span class="tag tag-green" style="margin-left:8px">Lv.1-10</span></div>
+            <div class="card-text" style="margin-top:12px">
+              <strong>1.</strong> ตื่นขึ้นมาในหมู่บ้าน → เรียนรู้ระบบพื้นฐาน (เดิน, ต่อสู้, คราฟ)<br>
+              <strong>2.</strong> ช่วยหมู่บ้านจากโจรกลุ่มแรก → ได้อาวุธแรก<br>
+              <strong>3.</strong> พบนักรบปริศนา → เปิดเผยว่าคุณมีสิทธิ์ในบัลลังก์<br>
+              <strong>4.</strong> เลือก: เชื่อเขา หรือ ไม่เชื่อ → เปลี่ยน Quest Path
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" data-tab="act2">
+          <div class="feature-card" style="margin:0">
+            <div class="card-title">Act 2: เส้นทางแห่งอำนาจ <span class="tag tag-blue" style="margin-left:8px">Lv.10-30</span></div>
+            <div class="card-text" style="margin-top:12px">
+              <strong>1.</strong> เลือกเส้นทาง: ทหาร / ช่างฝีมือ / นักเวท → Quest Chain แตกต่าง<br>
+              <strong>2.</strong> ฝึกฝนอาชีพที่เลือก → ปลดล็อค Skill ใหม่<br>
+              <strong>3.</strong> ค้นพบภัยคุกคามต่ออาณาจักร — กลุ่มลับกำลังวางแผนยึดอำนาจ<br>
+              <strong>4.</strong> สร้างพันธมิตรกับ NPC หรือ ผู้เล่นคนอื่น
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" data-tab="act3">
+          <div class="feature-card" style="margin:0">
+            <div class="card-title">Act 3: มหาสงคราม <span class="tag tag-purple" style="margin-left:8px">Lv.30-50</span></div>
+            <div class="card-text" style="margin-top:12px">
+              <strong>1.</strong> รวบรวมพันธมิตร → เลือกฝ่ายในสงครามกลางเมือง<br>
+              <strong>2.</strong> ยึดป้อมปราการ → Siege Quest (ผู้เล่นหลายคนร่วมรบ)<br>
+              <strong>3.</strong> เผชิญหน้ากับ Final Boss ของ Act → Demon General<br>
+              <strong>4.</strong> ผลลัพธ์: เปลี่ยนผู้นำ Kingdom ตามฝ่ายที่ชนะ
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" data-tab="act4">
+          <div class="feature-card" style="margin:0">
+            <div class="card-title">Act 4: ราชาผู้ครองบัลลังก์ <span class="tag tag-gold" style="margin-left:8px">Lv.50+</span></div>
+            <div class="card-text" style="margin-top:12px">
+              <strong>1.</strong> ขึ้นครองราชย์ หรือ สนับสนุนผู้นำคนอื่น<br>
+              <strong>2.</strong> ปกครองอาณาจักร → Kingdom Management Quest<br>
+              <strong>3.</strong> ภัยคุกคามใหม่จากต่างแดน — ต้องรวมผู้เล่นทั้ง Server<br>
+              <strong>4.</strong> Endgame: สร้าง Legacy → ชื่อของคุณถูกจารึกในเกม
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Side Quests & Daily -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">📋</span> Side Quest & Daily/Weekly</h3>
+      <div class="card-grid">
+        <div class="feature-card">
+          <span class="card-icon">🎯</span>
+          <div class="card-title">Bounty Board</div>
+          <div class="card-text">ล่าตัวผู้เล่น/มอนสเตอร์ที่ถูกประกาศ — รางวัลเงิน + Reputation</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">💬</span>
+          <div class="card-title">NPC Requests</div>
+          <div class="card-text">"ช่วยหาสมุนไพร 5 ชนิด" / "ส่งจดหมายไปเมืองอื่น" — ง่ายแต่ได้ XP</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🔍</span>
+          <div class="card-title">Mystery Quests</div>
+          <div class="card-text">ไขปริศนาในป่า/ดันเจียน — Hidden Story ที่ต้องค้นหาเอง</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">📅</span>
+          <div class="card-title">Daily Quests</div>
+          <div class="card-text">ทำนา 3 แปลง, ชนะ PvP 2 ครั้ง, คราฟของ 5 ชิ้น → รางวัล XP + เงิน</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">📆</span>
+          <div class="card-title">Weekly Quests</div>
+          <div class="card-text">ชนะ Tournament, ล่า Boss, ค้าขายได้ 1,000 Gold → รางวัลพิเศษ</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SYSTEM 5: KINGDOM BUILDING ==================== -->
+  <section id="system-5" class="content-section">
+    <div class="section-header reveal">
+      <span class="section-number">System 05</span>
+      <h2 class="section-title"><span class="section-icon">🏰</span> ระบบสร้างอาณาจักร</h2>
+      <p class="section-desc">ไม่ใช่แค่สร้างบ้าน — สร้างเมือง สร้างอาณาจักร! ระบบที่ดิน + อาคาร 10+ ประเภท</p>
+    </div>
+
+    <!-- Buildings -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🏘️</span> ประเภทอาคาร</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>อาคาร</th><th>ต้นทุน</th><th>ฟังก์ชัน</th></tr></thead>
+          <tbody>
+            <tr><td class="cell-highlight">🏠 บ้านไม้</td><td class="cell-mono">100 Gold</td><td>ที่พักพื้นฐาน, เก็บของ 20 ช่อง</td></tr>
+            <tr><td class="cell-highlight">🏡 บ้านหิน</td><td class="cell-mono">500 Gold</td><td>ที่พักอัพเกรด, เก็บของ 50 ช่อง</td></tr>
+            <tr><td class="cell-highlight">🏪 ร้านค้า</td><td class="cell-mono">800 Gold</td><td>ตั้งร้านขายของ, NPC ช่วยขาย</td></tr>
+            <tr><td class="cell-highlight">⚒️ โรงตีเหล็ก</td><td class="cell-mono">1,200 Gold</td><td>คราฟอาวุธ/เกราะ Tier 2+</td></tr>
+            <tr><td class="cell-highlight">🎪 ค่ายทหาร</td><td class="cell-mono">2,000 Gold</td><td>ฝึกทหาร NPC, เก็บอาวุธ</td></tr>
+            <tr><td class="cell-highlight">🧱 กำแพงเมือง</td><td class="cell-mono">3,000 Gold</td><td>ป้องกันเมืองจากการบุก</td></tr>
+            <tr><td class="cell-highlight">⛪ มหาวิหาร</td><td class="cell-mono">5,000 Gold</td><td>Heal, Buff, Revive ราคาถูก</td></tr>
+            <tr><td class="cell-highlight">🏛️ ตลาดกลาง</td><td class="cell-mono">2,500 Gold</td><td>เพิ่มจำนวน Player Shop Slots</td></tr>
+            <tr><td class="cell-highlight">🗼 หอสังเกตการณ์</td><td class="cell-mono">1,500 Gold</td><td>เห็นแผนที่กว้างขึ้น, เตือนศัตรู</td></tr>
+            <tr><td class="cell-gold">🏰 ปราสาท</td><td class="cell-mono">10,000 Gold</td><td>ที่ตั้งของ Lord/King, Throne Room</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Territory Map -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🗺️</span> Kingdom Territory Map</h3>
+      <div class="code-block" style="text-align:center; line-height:2.2; font-size:0.85rem;">
+        <span class="highlight">┌──────────────────────────────────┐</span><br>
+        <span class="highlight">│</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">👑 Capital City</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight">│</span><br>
+        <span class="highlight">│</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">กษัตริย์ปกครอง + ปราสาทหลวง</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight">│</span><br>
+        <span class="highlight">├────────────┬─────────────────────┤</span><br>
+        <span class="highlight">│</span> <span class="string">🏘️ Town A</span>&nbsp;&nbsp;<span class="highlight">│</span>&nbsp;&nbsp;<span class="string">🏘️ Town B</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight">│</span><br>
+        <span class="highlight">│</span> <span class="comment">ขุนนาง A</span>&nbsp;&nbsp;<span class="highlight">│</span>&nbsp;&nbsp;<span class="comment">ขุนนาง B</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight">│</span><br>
+        <span class="highlight">├────────────┼─────────────────────┤</span><br>
+        <span class="highlight">│</span> <span class="string">🌾 Farm</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight">│</span>&nbsp;&nbsp;<span class="string">🌲 Forest (Dungeon)</span><span class="highlight">│</span><br>
+        <span class="highlight">├────────────┼─────────────────────┤</span><br>
+        <span class="highlight">│</span> <span class="string">⛏️ Mine</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight">│</span>&nbsp;&nbsp;<span class="keyword">⚔️ Border Fort (PvP)</span><span class="highlight">│</span><br>
+        <span class="highlight">└────────────┴─────────────────────┘</span>
+      </div>
+
+      <div class="info-card success reveal">
+        <div class="info-title">🗺️ ระบบที่ดิน</div>
+        แผนที่แบ่งเป็น <strong>Plots</strong> — ผู้เล่นซื้อที่ดินเพื่อสร้างสิ่งก่อสร้าง
+        <strong>ขุนนาง</strong> ซื้อ Plot ขนาดใหญ่สร้างเมืองย่อย
+        <strong>กษัตริย์</strong> ควบคุม Capital City ทั้งหมด
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SYSTEM 6: CRAFTING ==================== -->
+  <section id="system-6" class="content-section">
+    <div class="section-header reveal">
+      <span class="section-number">System 06</span>
+      <h2 class="section-title"><span class="section-icon">🔨</span> ระบบคราฟ</h2>
+      <p class="section-desc">คราฟที่มีความลึก — ไม่ใช่แค่กดปุ่มเดียว มี Mini-Game ที่ต้องใช้ฝีมือ และระบบคุณภาพ 5 ระดับ</p>
+    </div>
+
+    <!-- Crafting Branches -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🛠️</span> สาขาการคราฟ</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>สาขา</th><th>ผลิตภัณฑ์</th><th>วัตถุดิบหลัก</th></tr></thead>
+          <tbody>
+            <tr><td class="cell-highlight">⚒️ ช่างตีเหล็ก</td><td>ดาบ, เกราะ, โล่</td><td>แร่เหล็ก, ถ่าน, หนัง</td></tr>
+            <tr><td class="cell-highlight">🪵 ช่างไม้</td><td>ธนู, โล่ไม้, เฟอร์นิเจอร์</td><td>ไม้, เชือก</td></tr>
+            <tr><td class="cell-highlight">⚗️ นักเล่นแร่แปรธาตุ</td><td>ยา, ยาพิษ, Enchant</td><td>สมุนไพร, คริสตัล</td></tr>
+            <tr><td class="cell-highlight">🧵 ช่างตัดเสื้อ</td><td>ชุดเกราะผ้า, เสื้อคลุม</td><td>ผ้า, หนัง, ด้าย</td></tr>
+            <tr><td class="cell-highlight">🍳 ช่างทำอาหาร</td><td>Buff Food, Heal Food</td><td>วัตถุดิบเกษตร</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Quality System -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">⭐</span> ระบบคุณภาพ</h3>
+      <div class="feature-card" style="padding:20px 28px">
+        <div class="quality-tier">
+          <span class="quality-stars">★<span class="empty">☆☆☆☆</span></span>
+          <span class="quality-name common">Common</span>
+          <span class="quality-req">สร้างได้ทั่วไป</span>
+        </div>
+        <div class="quality-tier">
+          <span class="quality-stars">★★<span class="empty">☆☆☆</span></span>
+          <span class="quality-name uncommon">Uncommon</span>
+          <span class="quality-req">Skill Lv.10+</span>
+        </div>
+        <div class="quality-tier">
+          <span class="quality-stars">★★★<span class="empty">☆☆</span></span>
+          <span class="quality-name rare">Rare</span>
+          <span class="quality-req">Skill Lv.25+ | วัตถุดิบหายาก</span>
+        </div>
+        <div class="quality-tier">
+          <span class="quality-stars">★★★★<span class="empty">☆</span></span>
+          <span class="quality-name epic">Epic</span>
+          <span class="quality-req">Skill Lv.40+ | Recipe พิเศษ</span>
+        </div>
+        <div class="quality-tier">
+          <span class="quality-stars">★★★★★</span>
+          <span class="quality-name legendary">Legendary</span>
+          <span class="quality-req">Skill Lv.50 | วัตถุดิบจาก Boss | โอกาส 30%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mini-game -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🎲</span> Mini-Game Crafting</h3>
+      <div class="card-grid card-grid-3">
+        <div class="feature-card">
+          <span class="card-icon">🔨</span>
+          <div class="card-title">ช่างตีเหล็ก</div>
+          <div class="card-text">กด Timing Bar ให้ตรงจังหวะตีเหล็ก — คล้าย Rhythm Game</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">⚗️</span>
+          <div class="card-title">นักเล่นแร่แปรธาตุ</div>
+          <div class="card-text">ผสมส่วนผสมให้ถูกสัดส่วน — แนว Puzzle</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🍳</span>
+          <div class="card-title">ช่างทำอาหาร</div>
+          <div class="card-text">ทำตาม Recipe ให้ทัน Timer — Speed Challenge</div>
+        </div>
+      </div>
+      <div class="info-card success reveal">
+        <div class="info-title">💡 Perfect Bonus</div>
+        ทำ Mini-Game ได้ Perfect → เพิ่มโอกาสได้ของ Quality สูงขึ้น 1 ระดับ!
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SYSTEM 7: FARMING & RESOURCES ==================== -->
+  <section id="system-7" class="content-section">
+    <div class="section-header reveal">
+      <span class="section-number">System 07</span>
+      <h2 class="section-title"><span class="section-icon">🌾</span> ระบบฟาร์ม & ทรัพยากร</h2>
+      <p class="section-desc">ระบบเก็บทรัพยากรที่เป็นหัวใจของเศรษฐกิจ — เกษตรกรรม, เหมืองแร่, และการล่าสัตว์</p>
+    </div>
+
+    <!-- Farming -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🌱</span> การเกษตร</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>พืช</th><th>เวลาเติบโต</th><th>ขายได้</th><th>ใช้ทำ</th></tr></thead>
+          <tbody>
+            <tr><td class="cell-highlight">🌾 ข้าวสาลี</td><td>5 นาที</td><td class="cell-mono">5 Copper</td><td>ขนมปัง</td></tr>
+            <tr><td class="cell-highlight">🥔 มันฝรั่ง</td><td>8 นาที</td><td class="cell-mono">8 Copper</td><td>สตูว์</td></tr>
+            <tr><td class="cell-highlight">🌿 สมุนไพร</td><td>15 นาที</td><td class="cell-mono">20 Copper</td><td>ยา, Potion</td></tr>
+            <tr><td class="cell-highlight">🍇 องุ่น</td><td>30 นาที</td><td class="cell-mono">50 Copper</td><td>ไวน์ (ขายแพง!)</td></tr>
+            <tr><td class="cell-gold">🌸 ดอกไม้หายาก</td><td>60 นาที</td><td class="cell-mono">100 Copper</td><td>Enchant Material</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Mining Visual -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">⛏️</span> การขุดแร่ — เหมือง 4 ชั้น</h3>
+      <div class="mine-visual">
+        <div class="mine-layer">
+          <span class="mine-depth">🪨 ชั้นที่ 1 (ตื้น)</span>
+          <span class="mine-resources">ทองแดง, เหล็ก</span>
+          <span class="mine-danger"><span class="tag tag-green">ง่าย, ปลอดภัย</span></span>
+        </div>
+        <div class="mine-layer">
+          <span class="mine-depth">⛏️ ชั้นที่ 2 (กลาง)</span>
+          <span class="mine-resources">เงิน, ทอง</span>
+          <span class="mine-danger"><span class="tag tag-blue">มี Mob ระดับกลาง</span></span>
+        </div>
+        <div class="mine-layer">
+          <span class="mine-depth">💎 ชั้นที่ 3 (ลึก)</span>
+          <span class="mine-resources">เพชร, Mythril</span>
+          <span class="mine-danger"><span class="tag tag-purple">Mob แข็ง + PvP Zone</span></span>
+        </div>
+        <div class="mine-layer">
+          <span class="mine-depth">🔥 ชั้นที่ 4 (ห้องลับ)</span>
+          <span class="mine-resources">Dragon Ore, Crystal</span>
+          <span class="mine-danger"><span class="tag tag-red">Boss Guard + ต้องมี Party</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hunting -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🌲</span> การตัดไม้ & ล่าสัตว์</h3>
+      <div class="card-grid card-grid-3">
+        <div class="feature-card">
+          <span class="card-icon">🌳</span>
+          <div class="card-title">ป่าธรรมดา</div>
+          <div class="card-text">ไม้สน, ไม้โอ๊ค • กระต่าย, กวาง — เปิดให้ทุกคน</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🌲</span>
+          <div class="card-title">ป่าลึก</div>
+          <div class="card-text">ไม้มะฮอกกานี • หมี, หมาป่า — ได้หนังคุณภาพดี</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🌑</span>
+          <div class="card-title">ป่าต้องห้าม</div>
+          <div class="card-text">ไม้ Enchanted • สัตว์วิเศษ — ต้อง Lv.30+ ถึงเข้าได้</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SYSTEM 8: POLITICS ==================== -->
+  <section id="system-8" class="content-section">
+    <div class="section-header reveal">
+      <span class="section-number">System 08</span>
+      <h2 class="section-title"><span class="section-icon">⚖️</span> ระบบการเมือง & การทูต</h2>
+      <p class="section-desc">ให้เกมมี Drama! — การเมืองที่ผู้เล่นกำหนดเอง ตั้งแต่เลือกตั้ง, ออกกฎหมาย, ไปจนถึงประกาศสงคราม</p>
+    </div>
+
+    <!-- Election -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🗳️</span> ระบบเลือกตั้ง</h3>
+      <div class="flowchart">
+        <div class="flowchart-title">ขั้นตอนการเลือกตั้งกษัตริย์</div>
+        <div class="flow-row">
+          <div class="flow-node start">⏰ ทุก 3 วัน (Real-time)</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node process">📋 Duke/Lord ลงสมัคร</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node decision">📢 หาเสียง 24 ชม.</div>
+        </div>
+        <div class="flow-divider"></div>
+        <div class="flow-row">
+          <div class="flow-node process">🗳️ ทุกคนโหวต</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node reward">📊 นับคะแนน</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node end">👑 กษัตริย์คนใหม่!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Laws -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">📜</span> กฎหมายที่กษัตริย์ออกได้</h3>
+      <div class="card-grid card-grid-3">
+        <div class="feature-card"><span class="card-icon">💰</span><div class="card-title">ตั้งอัตราภาษี</div><div class="card-text">กำหนดภาษี 5% - 25% มีผลทั้ง Server</div></div>
+        <div class="feature-card"><span class="card-icon">⚔️</span><div class="card-title">กฎ PvP</div><div class="card-text">ห้ามหรืออนุญาต PvP ในเขตเมือง</div></div>
+        <div class="feature-card"><span class="card-icon">🏴</span><div class="card-title">ประกาศสงคราม</div><div class="card-text">เปิดสงครามกับ Kingdom อื่น</div></div>
+        <div class="feature-card"><span class="card-icon">📊</span><div class="card-title">ควบคุมราคา</div><div class="card-text">กำหนดราคาขั้นต่ำ/สูงสุดของสินค้า</div></div>
+        <div class="feature-card"><span class="card-icon">🚫</span><div class="card-title">แบน Item</div><div class="card-text">ห้ามใช้ Item บางอย่าง (ยาพิษ ฯลฯ)</div></div>
+      </div>
+    </div>
+
+    <!-- Diplomacy -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🤝</span> ระบบพันธมิตร & การทูต</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>ประเภท</th><th>รายละเอียด</th><th>ผลลัพธ์</th></tr></thead>
+          <tbody>
+            <tr><td class="cell-highlight">🤝 Alliance</td><td>2 Kingdom ร่วมมือกัน</td><td>แชร์ทรัพยากร, ช่วยรบ</td></tr>
+            <tr><td class="cell-highlight">📦 Trade Agreement</td><td>ข้อตกลงทางการค้า</td><td>ลดภาษีการค้าระหว่าง Kingdom</td></tr>
+            <tr><td class="cell-highlight">⚔️ War Declaration</td><td>ประกาศสงคราม</td><td>เปิด Siege Mode ยึดดินแดน</td></tr>
+            <tr><td class="cell-highlight">💰 Tribute</td><td>จ่ายส่วย</td><td>Kingdom เล็กจ่ายส่วยแลกการป้องกัน</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Reputation -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🔔</span> ระบบ Reputation</h3>
+      <div class="card-grid card-grid-3">
+        <div class="feature-card">
+          <span class="card-icon">😇</span>
+          <div class="card-title">Hero (500+)</div>
+          <div class="card-text">ได้จาก: ช่วยเหลือผู้เล่น, ทำเควส<br>ผล: NPC ลดราคา, เควสพิเศษ</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">😐</span>
+          <div class="card-title">Neutral (0)</div>
+          <div class="card-text">สถานะเริ่มต้นของทุกคน — ไม่มีโบนัสหรือบทลงโทษ</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">😈</span>
+          <div class="card-title">Villain (-500)</div>
+          <div class="card-text">ได้จาก: ขโมย, PK, ทรยศ<br>ผล: ถูกตามล่า, NPC ไม่ขายของ, มี Bounty</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SYSTEM 9: GUILDS ==================== -->
+  <section id="system-9" class="content-section">
+    <div class="section-header reveal">
+      <span class="section-number">System 09</span>
+      <h2 class="section-title"><span class="section-icon">🛡️</span> ระบบกิลด์ & อาชีพ</h2>
+      <p class="section-desc">เข้าร่วม NPC Guild เพื่อรับสิทธิพิเศษ หรือสร้าง Player Clan ของตัวเองเพื่อยึดครองดินแดน</p>
+    </div>
+
+    <!-- NPC Guilds -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🏛️</span> NPC Guilds (สมาคม)</h3>
+      <div class="card-grid">
+        <div class="feature-card">
+          <span class="card-icon">⚔️</span>
+          <div class="card-title">Warrior Guild</div>
+          <div class="card-text">ฝึก Combat Skill เร็ว x2 • ซื้ออาวุธราคาถูก • เข้า Training Ground</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">💼</span>
+          <div class="card-title">Merchant Guild</div>
+          <div class="card-text">เปิดร้านได้มากขึ้น • ลดภาษีการค้า • Trade Route Bonus</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🔮</span>
+          <div class="card-title">Mage Guild</div>
+          <div class="card-text">เรียนเวทมนตร์ • เข้า Mage Tower • Enchant ของได้</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🗡️</span>
+          <div class="card-title">Thief Guild</div>
+          <div class="card-text">ขโมยของผู้เล่นได้ • ปลดล็อค • หนีคุก • Hidden Shop</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🐴</span>
+          <div class="card-title">Knight Order</div>
+          <div class="card-text">ม้า + เกราะฟรี • เข้า Castle ได้ • Quest พิเศษ</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Player Clans -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">👥</span> Player Clans</h3>
+      <div class="card-grid card-grid-3">
+        <div class="feature-card">
+          <span class="card-icon">🏴</span>
+          <div class="card-title">สร้าง Clan</div>
+          <div class="card-text">ตั้งชื่อ + ธง + สีประจำ Clan — แสดงตัวตน</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🏠</span>
+          <div class="card-title">Clan Hall</div>
+          <div class="card-text">อาคารเฉพาะ Clan — ที่ประชุม, Storage ร่วม</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">⚔️</span>
+          <div class="card-title">Clan War</div>
+          <div class="card-text">ท้ารบ Clan อื่น → ชนะได้ที่ดิน + เงิน</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">💰</span>
+          <div class="card-title">Clan Treasury</div>
+          <div class="card-text">สมาชิกบริจาคเงินร่วมกัน — ใช้อัพเกรด Clan</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">✨</span>
+          <div class="card-title">Clan Skills</div>
+          <div class="card-text">ปลดล็อค Buff ให้สมาชิกทั้ง Clan เช่น +10% XP</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SYSTEM 10: EVENTS & BOSS ==================== -->
+  <section id="system-10" class="content-section">
+    <div class="section-header reveal">
+      <span class="section-number">System 10</span>
+      <h2 class="section-title"><span class="section-icon">🐉</span> ระบบ Events & Boss</h2>
+      <p class="section-desc">ทำให้เกมมีอะไรใหม่ๆ ตลอดเวลา — Events ที่เกิดขึ้นเป็นระยะ และ World Boss ที่ต้องรวมพลสู้</p>
+    </div>
+
+    <!-- Events Table -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">📅</span> Events ประจำ</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Event</th><th>ความถี่</th><th>รายละเอียด</th><th>รางวัล</th></tr></thead>
+          <tbody>
+            <tr><td class="cell-highlight">🏆 Tournament</td><td>ทุก 2 ชม.</td><td>แข่ง PvP 1v1 Bracket</td><td>เงิน + Title "Champion"</td></tr>
+            <tr><td class="cell-highlight">🏰 Siege War</td><td>ทุก 6 ชม.</td><td>Kingdom บุกยึดป้อมปราการ</td><td>Territory + Treasury</td></tr>
+            <tr><td class="cell-highlight">👹 Monster Invasion</td><td>สุ่ม</td><td>มอนสเตอร์บุกเมือง!</td><td>Rare Drop + XP Bonus</td></tr>
+            <tr><td class="cell-highlight">🎪 Market Festival</td><td>ทุก 24 ชม.</td><td>ลดราคาสินค้า, Exclusive Items</td><td>Limited Items</td></tr>
+            <tr><td class="cell-highlight">💃 Royal Ball</td><td>ทุก 48 ชม.</td><td>งานเต้นรำในปราสาท</td><td>Social Score + Emotes</td></tr>
+            <tr><td class="cell-gold">🐉 Dragon Raid</td><td>ทุก 72 ชม.</td><td>บอสมังกรบุก! 20+ คนร่วมสู้</td><td>Legendary Gear</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- World Bosses -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🐲</span> World Boss</h3>
+      <div class="card-grid card-grid-3">
+        <div class="feature-card">
+          <span class="card-icon">🐉</span>
+          <div class="card-title">Dragon</div>
+          <div class="card-text">
+            <strong>HP:</strong> 100,000<br>
+            <strong>สกิล:</strong> ไฟ, บิน, AoE<br>
+            <strong>Drop:</strong> Dragon Armor Set
+          </div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">👿</span>
+          <div class="card-title">Demon Lord</div>
+          <div class="card-text">
+            <strong>HP:</strong> 150,000<br>
+            <strong>สกิล:</strong> Dark Magic, Summon<br>
+            <strong>Drop:</strong> Demon Blade
+          </div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🗿</span>
+          <div class="card-title">Ancient Golem</div>
+          <div class="card-text">
+            <strong>HP:</strong> 200,000<br>
+            <strong>สกิล:</strong> แข็งมาก, ทำลายอาคาร<br>
+            <strong>Drop:</strong> Golem Core (Enchant)
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SYSTEM 11: PROGRESSION ==================== -->
+  <section id="system-11" class="content-section">
+    <div class="section-header reveal">
+      <span class="section-number">System 11</span>
+      <h2 class="section-title"><span class="section-icon">📈</span> ระบบ Progression & Skills</h2>
+      <p class="section-desc">Level 1-100 พร้อม Skill Tree 4 สาย และ Talent Points ที่ให้ Customize ตัวละครได้ตามใจ</p>
+    </div>
+
+    <!-- Level Stats -->
+    <div class="stat-row reveal">
+      <div class="stat-card">
+        <span class="stat-value">100</span>
+        <span class="stat-label">Max Level</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">1 / Lv</span>
+        <span class="stat-label">Talent Points</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">4</span>
+        <span class="stat-label">Skill Trees</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">10 Lv</span>
+        <span class="stat-label">Unlock Area</span>
+      </div>
+    </div>
+
+    <!-- Skill Tree -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🌳</span> Skill Trees</h3>
+      <div class="skill-tree">
+        <div class="skill-tree-row">
+          <div class="skill-node root">👤 Character</div>
+        </div>
+        <div class="skill-tree-connector"></div>
+        <div class="skill-tree-row">
+          <div class="skill-node branch">⚔️ Combat</div>
+          <div class="skill-node branch">🔨 Craft</div>
+          <div class="skill-node branch">👥 Social</div>
+        </div>
+        <div class="skill-tree-connector"></div>
+        <div class="skill-tree-row">
+          <div class="skill-node leaf">🗡️ Melee</div>
+          <div class="skill-node leaf">🏹 Range</div>
+          <div class="skill-node leaf">🔮 Magic</div>
+          <div class="skill-node leaf">⚒️ Smith</div>
+          <div class="skill-node leaf">⚗️ Alchemy</div>
+          <div class="skill-node leaf">👑 Leader</div>
+          <div class="skill-node leaf">💬 Negotiate</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Talent Paths -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">✨</span> Talent Paths</h3>
+      <div class="card-grid">
+        <div class="feature-card">
+          <span class="card-icon">⚔️</span>
+          <div class="card-title">Warrior Path</div>
+          <div class="card-text">+DMG, +HP, ท่าพิเศษ Melee — สายตีแรงทนทาน</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🗡️</span>
+          <div class="card-title">Rogue Path</div>
+          <div class="card-text">+Speed, +Crit, Stealth — สายเร็วซ่อนตัว Critical สูง</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🔮</span>
+          <div class="card-title">Mage Path</div>
+          <div class="card-text">+Magic DMG, +Mana, เวทใหม่ — สายเวทมนตร์ AoE</div>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">👑</span>
+          <div class="card-title">Leader Path</div>
+          <div class="card-text">+Buff Allies, +Tax Discount, +Reputation — สายผู้นำ</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- XP Sources -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">⭐</span> แหล่ง XP</h3>
+      <div class="flowchart">
+        <div class="flowchart-title">วิธีได้ XP ในเกม</div>
+        <div class="flow-row">
+          <div class="flow-node start">⚔️ ต่อสู้</div>
+          <div class="flow-node process">🔨 คราฟ</div>
+          <div class="flow-node decision">📖 เควส</div>
+          <div class="flow-node reward">💰 ค้าขาย</div>
+          <div class="flow-node end">🌾 ฟาร์ม</div>
+        </div>
+      </div>
+      <div class="info-card reveal">
+        <div class="info-title">📌 สำคัญ</div>
+        ทุก 10 Level จะปลดล็อคพื้นที่ใหม่ในแผนที่ — ให้ผู้เล่นรู้สึกว่ามีอะไรให้ค้นหาเสมอ
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SYSTEM 12: MONETIZATION ==================== -->
+  <section id="system-12" class="content-section">
+    <div class="section-header reveal">
+      <span class="section-number">System 12</span>
+      <h2 class="section-title"><span class="section-icon">💎</span> ระบบ Monetization</h2>
+      <p class="section-desc">สร้างรายได้จากเกมโดยไม่ทำให้เกม Pay-to-Win — เน้น Cosmetic และ Convenience</p>
+    </div>
+
+    <div class="info-card warning reveal">
+      <div class="info-title">⚠️ หลักการสำคัญ</div>
+      สิ่งที่ซื้อด้วย Robux ต้อง <strong>ไม่ให้ข้อได้เปรียบในการต่อสู้</strong> (No Pay-to-Win) — เน้น Cosmetic และ Convenience เท่านั้น
+    </div>
+
+    <!-- Gamepasses -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🎫</span> Gamepass (ซื้อครั้งเดียว)</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Gamepass</th><th>ราคา (Robux)</th><th>ให้อะไร</th></tr></thead>
+          <tbody>
+            <tr><td class="cell-gold">⭐ VIP</td><td class="cell-mono">299 R$</td><td>+50% XP, VIP Badge, Exclusive Emotes</td></tr>
+            <tr><td class="cell-highlight">🏛️ Noble Start</td><td class="cell-mono">149 R$</td><td>เริ่มเป็นช่างฝีมือ (ข้ามชาวนา)</td></tr>
+            <tr><td class="cell-highlight">🗺️ Extra Plot</td><td class="cell-mono">99 R$</td><td>ซื้อที่ดินได้เพิ่ม 1 แปลง</td></tr>
+            <tr><td class="cell-highlight">🏴 Custom Banner</td><td class="cell-mono">49 R$</td><td>ออกแบบธงประจำตัว/Clan</td></tr>
+            <tr><td class="cell-highlight">📻 Radio</td><td class="cell-mono">199 R$</td><td>เปิดเพลงในเกมได้</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Dev Products -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">💎</span> Developer Products (ซื้อซ้ำได้)</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>สินค้า</th><th>ราคา</th><th>ให้อะไร</th></tr></thead>
+          <tbody>
+            <tr><td class="cell-highlight">💰 1,000 Gold</td><td class="cell-mono">49 R$</td><td>เงินในเกม (มี Daily Cap ป้องกัน inflation)</td></tr>
+            <tr><td class="cell-highlight">💰 5,000 Gold</td><td class="cell-mono">199 R$</td><td>เงินในเกม (มี Daily Cap)</td></tr>
+            <tr><td class="cell-highlight">⚡ XP Boost 2x</td><td class="cell-mono">25 R$</td><td>Double XP 1 ชั่วโมง</td></tr>
+            <tr><td class="cell-highlight">🎁 Cosmetic Crate</td><td class="cell-mono">75 R$</td><td>ชุดเสื้อผ้า Random (ไม่มีผลต่อ Stat)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CORE GAME LOOP ==================== -->
+  <section id="gameloop" class="content-section">
+    <div class="section-header reveal">
+      <span class="section-number">Summary</span>
+      <h2 class="section-title"><span class="section-icon">🔄</span> Core Game Loop</h2>
+      <p class="section-desc">วงจรการเล่นเกมหลักที่ทำให้ผู้เล่นกลับมาเล่นซ้ำ — ตั้งแต่ระยะสั้นไปจนถึงระยะยาว</p>
+    </div>
+
+    <!-- Main Loop Flowchart -->
+    <div class="flowchart reveal">
+      <div class="flowchart-title">🔄 Main Game Loop</div>
+      <div class="flow-row">
+        <div class="flow-node start">🌅 เข้าเกม</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node process">📋 รับ Daily Quest</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node decision">❓ เลือกกิจกรรม</div>
+      </div>
+      <div class="flow-divider"></div>
+      <div class="flow-row">
+        <div class="flow-node end">⚔️ Combat / PvP</div>
+        <div class="flow-node reward">🌾 ฟาร์ม / คราฟ</div>
+        <div class="flow-node process">🤝 ค้าขาย / การเมือง</div>
+      </div>
+      <div class="flow-divider"></div>
+      <div class="flow-row">
+        <div class="flow-node start">💰 ได้ XP + เงิน + ของ</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node decision">📈 Level Up / เลื่อนชั้น</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node end">👑 ไต่สู่กษัตริย์!</div>
+      </div>
+    </div>
+
+    <!-- Engagement Loops -->
+    <div class="subsection reveal">
+      <h3 class="subsection-title"><span class="sub-icon">🎯</span> Engagement Loops</h3>
+      <div class="loop-cards">
+        <div class="loop-card">
+          <div class="loop-header">
+            <span class="loop-title">⚡ Short-term</span>
+            <span class="loop-duration">5-15 นาที</span>
+          </div>
+          <ul class="loop-items">
+            <li>ทำ Daily Quest → ได้รางวัลทันที</li>
+            <li>PvP Duel → ได้เงิน/เสียเงิน</li>
+            <li>คราฟของ → ขายใน Market</li>
+            <li>ฟาร์มพืช → เก็บเกี่ยว → ขาย</li>
+          </ul>
+        </div>
+        <div class="loop-card">
+          <div class="loop-header">
+            <span class="loop-title">🔥 Mid-term</span>
+            <span class="loop-duration">1-3 ชั่วโมง</span>
+          </div>
+          <ul class="loop-items">
+            <li>ลง Dungeon → หาของหายาก</li>
+            <li>Tournament → แข่งชิงแชมป์</li>
+            <li>Trade Route → ซื้อถูกขายแพงข้ามเมือง</li>
+            <li>Siege War → ร่วมรบยึดป้อม</li>
+          </ul>
+        </div>
+        <div class="loop-card">
+          <div class="loop-header">
+            <span class="loop-title">👑 Long-term</span>
+            <span class="loop-duration">หลายวัน</span>
+          </div>
+          <ul class="loop-items">
+            <li>เลื่อนลำดับชั้น → จากชาวนาเป็นกษัตริย์</li>
+            <li>สร้าง Kingdom → รวมพล + สงคราม</li>
+            <li>Clan War → ยึดดินแดน</li>
+            <li>Legacy → ชื่อจารึกในเกม</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ROADMAP ==================== -->
+  <section id="roadmap" class="content-section">
+    <div class="section-header reveal">
+      <span class="section-number">Roadmap</span>
+      <h2 class="section-title"><span class="section-icon">🗓️</span> Roadmap การพัฒนา</h2>
+      <p class="section-desc">แผนพัฒนาเกม 4 เฟส รวม 16 สัปดาห์ — จาก MVP สู่ Launch</p>
+    </div>
+
+    <div class="timeline reveal">
+      <!-- Phase 1 -->
+      <div class="timeline-item">
+        <span class="timeline-phase">Phase 1</span>
+        <h4 class="timeline-title">🏗️ MVP — แกนหลักของเกม</h4>
+        <span class="timeline-period">สัปดาห์ที่ 1-4</span>
+        <ul class="timeline-tasks">
+          <li>Map พื้นฐาน (Capital City + 2 เมืองย่อย + ป่า + เหมือง)</li>
+          <li>ระบบ Combat พื้นฐาน (ดาบ + ธนู + Block)</li>
+          <li>ระบบ Social Hierarchy (ชาวนา → ทหาร → อัศวิน)</li>
+          <li>ระบบเศรษฐกิจพื้นฐาน (NPC Shop + เงิน)</li>
+          <li>ระบบฟาร์ม + ขุดแร่</li>
+          <li>Daily Quest พื้นฐาน</li>
+          <li>DataStore (Save ข้อมูลผู้เล่น)</li>
+        </ul>
+      </div>
+
+      <!-- Phase 2 -->
+      <div class="timeline-item">
+        <span class="timeline-phase">Phase 2</span>
+        <h4 class="timeline-title">📦 Content Expansion — เนื้อหาเพิ่ม</h4>
+        <span class="timeline-period">สัปดาห์ที่ 5-8</span>
+        <ul class="timeline-tasks">
+          <li>ระบบคราฟ + Mini-Game</li>
+          <li>ระบบ Kingdom Building</li>
+          <li>เพิ่มอาวุธ + เกราะ Tier 2-3</li>
+          <li>Tournament + PvP Arena</li>
+          <li>Monster + Dungeon (2 แห่ง)</li>
+          <li>ระบบ Guild/Clan</li>
+        </ul>
+      </div>
+
+      <!-- Phase 3 -->
+      <div class="timeline-item">
+        <span class="timeline-phase">Phase 3</span>
+        <h4 class="timeline-title">🤝 Social & Politics — สังคมและการเมือง</h4>
+        <span class="timeline-period">สัปดาห์ที่ 9-12</span>
+        <ul class="timeline-tasks">
+          <li>ระบบเลือกตั้ง + กฎหมาย</li>
+          <li>ระบบ Reputation</li>
+          <li>ระบบ Alliance + สงคราม</li>
+          <li>เพิ่ม Event ต่างๆ (Tournament, Siege, Dragon Raid)</li>
+          <li>Player Market + Auction House</li>
+        </ul>
+      </div>
+
+      <!-- Phase 4 -->
+      <div class="timeline-item">
+        <span class="timeline-phase">Phase 4</span>
+        <h4 class="timeline-title">🚀 Polish & Launch — ขัดเงาและเปิดตัว</h4>
+        <span class="timeline-period">สัปดาห์ที่ 13-16</span>
+        <ul class="timeline-tasks">
+          <li>ระบบ Monetization (Gamepass + Dev Products)</li>
+          <li>UI/UX Polish — ปรับ Interface ให้สวยงาม</li>
+          <li>Bug Fixing + Balancing</li>
+          <li>Beta Test กับกลุ่มผู้เล่น</li>
+          <li>Launch + Marketing 🎉</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer style="text-align:center; padding:60px 20px; border-top:1px solid var(--border-subtle);">
+    <p style="font-family:var(--font-heading); color:var(--gold-primary); font-size:1.1rem; margin-bottom:8px;">👑 Medieval Life: Rise to the Throne</p>
+    <p style="font-size:0.75rem; color:var(--text-muted); letter-spacing:2px;">GAME DESIGN DOCUMENT • ROBLOX RPG</p>
+  </footer>
+
+</main>
+
+<!-- ========== BACK TO TOP ========== -->
+<button class="back-to-top" aria-label="Back to top">↑</button>
+
+<script src="script.js"></script>
+</body>
+</html>
